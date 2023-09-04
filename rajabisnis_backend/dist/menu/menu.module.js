@@ -10,12 +10,13 @@ exports.MenuModule = void 0;
 const common_1 = require("@nestjs/common");
 const menu_controller_1 = require("./menu.controller");
 const menu_service_1 = require("./menu.service");
+const prisma_service_1 = require("../prisma/prisma.service");
 let MenuModule = exports.MenuModule = class MenuModule {
 };
 exports.MenuModule = MenuModule = __decorate([
     (0, common_1.Module)({
         controllers: [menu_controller_1.MenuController],
-        providers: [menu_service_1.MenuService]
+        providers: [menu_service_1.MenuService, prisma_service_1.PrismaService]
     })
 ], MenuModule);
 //# sourceMappingURL=menu.module.js.map
