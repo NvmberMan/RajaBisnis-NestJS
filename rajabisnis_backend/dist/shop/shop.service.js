@@ -9,35 +9,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MenuService = void 0;
+exports.ShopService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
-let MenuService = exports.MenuService = class MenuService {
+let ShopService = exports.ShopService = class ShopService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async GetAllMenu() {
-        return await this.prisma.tb_menu.findMany();
-    }
-    async InsertMenu(insertMenuDto) {
-        return await this.prisma.tb_menu.create({
-            data: insertMenuDto
+    async create(createShopDto) {
+        return await this.prisma.shop.create({
+            data: createShopDto
         });
     }
-    async UpdateMenu(id, insertMenuDto) {
-        return await this.prisma.tb_menu.update({
-            data: insertMenuDto,
-            where: { id }
-        });
+    async findAll() {
+        return await this.prisma.shop.findMany();
     }
-    async DeleteMenu(id) {
-        return await this.prisma.tb_menu.delete({
-            where: { id }
-        });
+    findOne(id) {
+        return `This action returns a #${id} shop`;
+    }
+    update(id, updateShopDto) {
+        return `This action updates a #${id} shop`;
+    }
+    remove(id) {
+        return `This action removes a #${id} shop`;
     }
 };
-exports.MenuService = MenuService = __decorate([
+exports.ShopService = ShopService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
-], MenuService);
-//# sourceMappingURL=menu.service.js.map
+], ShopService);
+//# sourceMappingURL=shop.service.js.map

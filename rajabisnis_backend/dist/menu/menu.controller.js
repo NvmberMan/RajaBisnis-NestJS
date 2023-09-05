@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MenuController = void 0;
 const common_1 = require("@nestjs/common");
 const menu_service_1 = require("./menu.service");
+const InsertMenu_dto_1 = require("./dto/InsertMenu.dto");
 let MenuController = exports.MenuController = class MenuController {
     constructor(menuService) {
         this.menuService = menuService;
@@ -22,8 +23,14 @@ let MenuController = exports.MenuController = class MenuController {
     async GetAllMenu() {
         return await this.menuService.GetAllMenu();
     }
-    async InsertMenu(data) {
-        return await this.menuService.InsertMenu(data);
+    InsertMenu(insertMenuDto) {
+        return this.menuService.InsertMenu(insertMenuDto);
+    }
+    UpdateMenu(id, insertMenuDto) {
+        return this.menuService.UpdateMenu(id, insertMenuDto);
+    }
+    DeleteMenu(id) {
+        return this.menuService.DeleteMenu(id);
     }
 };
 __decorate([
@@ -36,9 +43,24 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:paramtypes", [InsertMenu_dto_1.InsertMenuDto]),
+    __metadata("design:returntype", void 0)
 ], MenuController.prototype, "InsertMenu", null);
+__decorate([
+    (0, common_1.Put)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, InsertMenu_dto_1.InsertMenuDto]),
+    __metadata("design:returntype", void 0)
+], MenuController.prototype, "UpdateMenu", null);
+__decorate([
+    (0, common_1.Delete)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], MenuController.prototype, "DeleteMenu", null);
 exports.MenuController = MenuController = __decorate([
     (0, common_1.Controller)('menu'),
     __metadata("design:paramtypes", [menu_service_1.MenuService])

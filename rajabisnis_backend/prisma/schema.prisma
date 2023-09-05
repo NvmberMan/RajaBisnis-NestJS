@@ -10,12 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model tb_menu {
-  id String @id @default(uuid())
-  name String
+model Shop {
+  id          String @id @default(uuid())
+  name        String
   description String
-  level_max Int @default(10)
-  price Int
-  price_multiplier Int @default(0)
-  price_unlock Int @default(0)
+}
+
+model tb_menu {
+  id               String @id @default(uuid())
+  name             String
+  description      String
+  level_max        Int    @default(10)
+  price            Int
+  price_multiplier Int    @default(0)
+  price_unlock     Int    @default(0)
+  shopId           String?
 }
