@@ -16,7 +16,7 @@ model Shop {
   description String
 }
 
-model tb_menu {
+model Menu {
   id               String @id @default(uuid())
   name             String
   description      String
@@ -25,4 +25,10 @@ model tb_menu {
   price_multiplier Int    @default(0)
   price_unlock     Int    @default(0)
   shopId           String?
+}
+
+model User {
+  id Int @default(autoincrement()) @id
+  email String @unique
+  password String 
 }

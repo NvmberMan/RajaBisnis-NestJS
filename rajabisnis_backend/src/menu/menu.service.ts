@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import {tb_menu} from '@prisma/client'
 import { InsertMenuDto } from './dto/InsertMenu.dto';
 
 @Injectable()
@@ -10,25 +9,33 @@ constructor(private prisma:PrismaService){
 
 }
 
-    async GetAllMenu() : Promise<tb_menu[]>{
-        return await this.prisma.tb_menu.findMany();
+    async GetAllMenu(){
+        return await this.prisma.menu.findMany();
+    }
+
+    async GetMenu(shopId:string){
+        return await this.prisma.menu.findFirst({
+            where : {
+                shopId: shopId
+            }
+        });
     }
 
     async InsertMenu(insertMenuDto: InsertMenuDto){
-        return await this.prisma.tb_menu.create({
+        return await this.prisma.menu.create({
             data : insertMenuDto
         })
     }
 
     async UpdateMenu(id:string,insertMenuDto: InsertMenuDto){
-        return await this.prisma.tb_menu.update({
+        return await this.prisma.menu.update({
             data : insertMenuDto,
             where : {id}
         })
     }
 
     async DeleteMenu(id:string){
-        return await this.prisma.tb_menu.delete({
+        return await this.prisma.menu.delete({
             where : {id}
         })
     }

@@ -1,6 +1,5 @@
 import {Body, Controller, Get, Param, Post, Put, Delete } from '@nestjs/common';
 import { MenuService } from './menu.service';
-import {tb_menu} from '@prisma/client';
 import { InsertMenuDto } from './dto/InsertMenu.dto';
 
 @Controller('menu')
@@ -10,8 +9,14 @@ export class MenuController {
     }
 
     @Get()
-    async GetAllMenu() : Promise<tb_menu[]> {
+    async GetAllMenu() {
         return await this.menuService.GetAllMenu();
+    }
+
+    
+    @Get('/:shopId')
+    async GetMenu(@Param('shopId')shopId:string) {
+        return await this.menuService.GetMenu(shopId);
     }
 
     @Post()

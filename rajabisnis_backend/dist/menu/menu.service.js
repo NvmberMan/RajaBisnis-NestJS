@@ -17,21 +17,28 @@ let MenuService = exports.MenuService = class MenuService {
         this.prisma = prisma;
     }
     async GetAllMenu() {
-        return await this.prisma.tb_menu.findMany();
+        return await this.prisma.menu.findMany();
+    }
+    async GetMenu(shopId) {
+        return await this.prisma.menu.findFirst({
+            where: {
+                shopId: shopId
+            }
+        });
     }
     async InsertMenu(insertMenuDto) {
-        return await this.prisma.tb_menu.create({
+        return await this.prisma.menu.create({
             data: insertMenuDto
         });
     }
     async UpdateMenu(id, insertMenuDto) {
-        return await this.prisma.tb_menu.update({
+        return await this.prisma.menu.update({
             data: insertMenuDto,
             where: { id }
         });
     }
     async DeleteMenu(id) {
-        return await this.prisma.tb_menu.delete({
+        return await this.prisma.menu.delete({
             where: { id }
         });
     }

@@ -23,6 +23,9 @@ let MenuController = exports.MenuController = class MenuController {
     async GetAllMenu() {
         return await this.menuService.GetAllMenu();
     }
+    async GetMenu(shopId) {
+        return await this.menuService.GetMenu(shopId);
+    }
     InsertMenu(insertMenuDto) {
         return this.menuService.InsertMenu(insertMenuDto);
     }
@@ -39,6 +42,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "GetAllMenu", null);
+__decorate([
+    (0, common_1.Get)('/:shopId'),
+    __param(0, (0, common_1.Param)('shopId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "GetMenu", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),

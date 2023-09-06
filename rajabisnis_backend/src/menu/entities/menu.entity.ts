@@ -1,4 +1,4 @@
-import { tb_menu as menus } from "@prisma/client";
+import { Menu as menus } from "@prisma/client";
 
 export class MenuEntity implements menus  {
     id: string;
