@@ -1,5 +1,11 @@
+/// <reference types="multer" />
 import { MenuService } from './menu.service';
 import { InsertMenuDto } from './dto/InsertMenu.dto';
+import { Response } from 'express';
+export declare const storage: {
+    storage: import("multer").StorageEngine;
+    fileFilter: (req: any, file: any, callback: any) => any;
+};
 export declare class MenuController {
     private menuService;
     constructor(menuService: MenuService);
@@ -53,4 +59,8 @@ export declare class MenuController {
         price_unlock: number;
         shopId: string;
     }>;
+    viewImage(imageName: string, res: Response): Promise<void>;
+    uploadFile(file: any): {
+        imagePath: any;
+    };
 }
