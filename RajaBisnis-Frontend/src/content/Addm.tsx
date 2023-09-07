@@ -1,25 +1,29 @@
-import { useState } from "react";
+import  {useState} from "react";
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Appbar from "../layout/Appbar";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import ArrowBack from "@mui/icons-material/ArrowBackIos";
+import Appbarm from "../layout/Appbarm";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CardMedia from "@mui/material/CardMedia";
-import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
-import AddIcon from "@mui/icons-material/Add";
-import Grid from "@mui/material/Grid";
-import Fab from "@mui/material/Fab";
+import Grid from "@mui/material/Grid"
+import SendIcon from "@mui/icons-material/Send"
 import "./Style/Detail.css";
-import Tablemenu from "../layout/Tablemenu";
 import SideBar from "../layout/Sidebar";
 
-export default function Details() {
+export default function Addm() {
+    
+
   const VisuallyHiddenInput = styled("input")`
     clip: rect(0 0 0 0);
     clip-path: inset(50%);
@@ -32,34 +36,44 @@ export default function Details() {
     width: 1px;
   `;
 
-  const [imageSrc, setImageSrc] = useState("");
-  function handleimage(e: any) {
+  const [imageSrc, setImageSrc] = useState('');
+  function handleimage(e:any) {
     const file = e.target.files[0];
     if (file) {
       const imageURL = URL.createObjectURL(file);
       setImageSrc(imageURL);
     }
   }
-  const navigate = useNavigate();
+
+  const navigate = useNavigate()
 
   return (
     <>
-      <React.Fragment>
-        <CssBaseline />
-        <Container>
-          <SideBar />
-          <Box sx={{ bgcolor: "#cfe8fc", margin: 5, boxShadow: 8 }}>
-            <Appbar />
-            <Box
-              sx={{
-                m: 2,
-                display: "flex",
-                backgroundColor: "whitesmoke",
-                boxShadow: "inherit",
-              }}
-            >
-              <Box>
-              <Grid container spacing={2}>
+    <React.Fragment>
+      <SideBar/>
+      <CssBaseline />
+      <Container fixed>
+          
+        <Box sx={{ bgcolor: "#cfe8fc", mx: 5 ,pb:3}}>
+        <Box sx={{ flexGrow: 1}}>
+            <AppBar position="static">
+              <Toolbar variant="dense">
+              <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    sx={{ mr: 2 }}
+                    onClick={()=>{navigate("/Details/:id")}}
+                  >
+                    <ArrowBack />
+                  </IconButton>
+                <Typography variant="h6" color="inherit" component="div">
+                  <strong>Add Menu</strong>
+                </Typography>
+              </Toolbar>
+            </AppBar>
+          </Box>
+          <Grid container spacing={2}>
           <Grid item xs={12} sm={8}>
               <Box>
                 <Box
@@ -170,44 +184,17 @@ export default function Details() {
 
               <Button
                 variant="contained"
-                sx={{ width: "100%", mx: 5 , mb: 2}}
+                sx={{ width: "100%", mx: 5 }}
                 endIcon={<SendIcon />}
               >
                 Update
               </Button>
             </Grid>
           </Grid>
-              </Box>
-              </Box>
-
-            <Box
-              sx={{
-                justifyContent: "flex-end",
-                m: 4,
-                mt: 5,
-                mb: -3,
-                display: "flex",
-                gap: "20px",
-              }}
-            >
-              <Fab
-                className="edit"
-                color="success"
-                sx={{ width: 50, height: 50 }}
-                onClick={() => {
-                  navigate("/Addmenu");
-                }}
-                aria-label="edit"
-              >
-                <AddIcon />
-              </Fab>
-            </Box>
-
-            <Tablemenu />
-          </Box>
-        </Container>
-      </React.Fragment>
-    </>
+        </Box>
+      </Container>
+    </React.Fragment>
+  </>
   );
 }
 

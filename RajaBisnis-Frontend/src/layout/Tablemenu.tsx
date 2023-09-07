@@ -9,11 +9,16 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
+import DelIcon from "@mui/icons-material/DeleteForever"
+import { useNavigate } from "react-router-dom";
+import './Stylelayout/Table.css'
+import AlertDelete from "./AlertDelete";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.dark,
     color: theme.palette.common.white,
+    
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -33,35 +38,36 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function createData(
   name: string,
   description: string,
-  fat: number,
+  menuimg: string,
   carbs: number,
 ) {
-  return { name, description, fat, carbs };
+  return { name, description, menuimg, carbs };
 }
 
 const rows = [
-  createData("Frozen yoghurt", "159", 6.0, 24),
-  createData("Ice cream sandwich", "237", 9.0, 37),
-  createData("Eclair", "262", 16.0, 24),
-  createData("Cupcake", "305", 3.7, 67),
-  createData("Gingerbread", "356", 16.0, 49),
+  createData("Frozen yoghurt", "159", "6.0", 24),
+  createData("Ice cream sandwich", "237", "9.0", 37),
+  createData("Eclair", "262", "16.0", 24),
+  createData("Cupcake", "305", "3.7", 67),
+  createData("Gingerbread", "356", "16.0", 49),
 ];
 
 export default function Tablemenu() {
+  const navigate = useNavigate();
   return (
+    
     <TableContainer>
       <Table
-        sx={{ width: 1000, m: 5 }}
+        sx={{ width: 1000, m: 5 , borderRadius: "10px", boxShadow: 8}}
         component={Paper}
         aria-label="customized table"
       >
         <TableHead>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell align="right">Description</StyledTableCell>
+            <StyledTableCell align="right">Menuimage</StyledTableCell>
+            <StyledTableCell align="right">Edit</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -71,12 +77,12 @@ export default function Tablemenu() {
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="right">{row.description}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+              <StyledTableCell align="right">{row.menuimg}</StyledTableCell>
               <StyledTableCell align="right">
-                <Fab color="secondary" sx={{width:50, height:50}} aria-label="edit">
+                <Fab className="edit" color="secondary" sx={{width:50, height:50}} onClick={()=>{navigate(`/Detailm/:id`)}} aria-label="edit">
                   <EditIcon />
                 </Fab>
+                <AlertDelete/>
               </StyledTableCell>
             </StyledTableRow>
           ))}

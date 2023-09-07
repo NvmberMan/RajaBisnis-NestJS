@@ -20,6 +20,7 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/DashboardTwoTone";
 import { useNavigate } from "react-router-dom";
 import ShopIcon from "@mui/icons-material/Store";
+import AddBox from "@mui/icons-material/AddBox"
 import MailIcon from "@mui/icons-material/Mail";
 import DashBoard from "../content/Dash";
 
@@ -162,7 +163,6 @@ export default function SideBar() {
               <ListItemText primary="Dashboard" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
-        </List>
         <ListItem disablePadding sx={{ display: "block" }} onClick={()=>{navigate("/Shop")}}>
             <ListItemButton
               sx={{
@@ -177,12 +177,34 @@ export default function SideBar() {
                   mr: open ? 3 : "auto",
                   justifyContent: "center",
                 }}
-              >
+                >
                 <ShopIcon />
               </ListItemIcon>
               <ListItemText primary="Store" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
+        <ListItem disablePadding sx={{ display: "block" }} onClick={()=>{navigate("/Addshop")}}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+                >
+                <AddBox />
+              </ListItemIcon>
+              <ListItemText primary="Add Shop" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
+        </List>
         <Divider />
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

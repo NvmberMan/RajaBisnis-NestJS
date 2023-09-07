@@ -24,7 +24,7 @@ export default function Cards() {
     <>
         <Box sx={{width: "85vw", display : "flex", flexWrap: "wrap-reverse", gap: "20px"}}>
       
-          <Card sx={{ width: 275 }} id="1">
+          <Card sx={{ width: 275 , boxShadow:10}} id="1">
             <CardContent>
               <Typography
                 variant="h5"
@@ -54,6 +54,7 @@ export default function Cards() {
               <Button color="secondary">Detail</Button>
             </CardActions>
           </Card>
+          
         </Box>
     </>
   );
