@@ -11,6 +11,7 @@ export declare class MenuService {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        menu_display: string;
         shopId: string;
     }[]>;
     GetMenu(shopId: string): Promise<{
@@ -21,9 +22,10 @@ export declare class MenuService {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        menu_display: string;
         shopId: string;
     }>;
-    InsertMenu(insertMenuDto: InsertMenuDto): Promise<{
+    InsertMenu(insertMenuDto: InsertMenuDto, file: any): Promise<{
         id: string;
         name: string;
         description: string;
@@ -31,9 +33,12 @@ export declare class MenuService {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        menu_display: string;
         shopId: string;
+    } | {
+        message: any;
     }>;
-    UpdateMenu(id: string, insertMenuDto: InsertMenuDto): Promise<{
+    UpdateMenu(id: string, insertMenuDto: InsertMenuDto, file: any): Promise<{
         id: string;
         name: string;
         description: string;
@@ -41,7 +46,10 @@ export declare class MenuService {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        menu_display: string;
         shopId: string;
+    } | {
+        message: string;
     }>;
     DeleteMenu(id: string): Promise<{
         id: string;
@@ -51,6 +59,7 @@ export declare class MenuService {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        menu_display: string;
         shopId: string;
     }>;
 }

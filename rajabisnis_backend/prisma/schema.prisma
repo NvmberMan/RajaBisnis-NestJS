@@ -25,6 +25,7 @@ model Menu {
   price            Int
   price_multiplier Int    @default(0)
   price_unlock     Int    @default(0)
+  menu_display     String @default("menudefault.png")
 
   shopId String
   shop   Shop   @relation(fields: [shopId], references: [id])

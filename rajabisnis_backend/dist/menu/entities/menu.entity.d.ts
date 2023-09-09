@@ -8,4 +8,5 @@ export declare class MenuEntity implements menus {
     price_multiplier: number;
     price_unlock: number;
     shopId: string;
+    menu_display: string;
 }

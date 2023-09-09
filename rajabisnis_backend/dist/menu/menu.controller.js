@@ -45,11 +45,11 @@ let MenuController = exports.MenuController = class MenuController {
     async GetMenu(shopId) {
         return await this.menuService.GetMenu(shopId);
     }
-    InsertMenu(insertMenuDto) {
-        return this.menuService.InsertMenu(insertMenuDto);
+    InsertMenu(insertMenuDto, file) {
+        return this.menuService.InsertMenu(insertMenuDto, file);
     }
-    UpdateMenu(id, insertMenuDto) {
-        return this.menuService.UpdateMenu(id, insertMenuDto);
+    UpdateMenu(id, insertMenuDto, file) {
+        return this.menuService.UpdateMenu(id, insertMenuDto, file);
     }
     DeleteMenu(id) {
         return this.menuService.DeleteMenu(id);
@@ -58,13 +58,6 @@ let MenuController = exports.MenuController = class MenuController {
         const imagePath = `./imagedata/menu/${imageName}`;
         const imageStream = fs.createReadStream(imagePath);
         imageStream.pipe(res);
-    }
-    uploadFile(file) {
-        if (!file) {
-            throw new Error('No file uploaded');
-        }
-        console.log(file);
-        return { imagePath: file.path };
     }
 };
 __decorate([
@@ -82,17 +75,21 @@ __decorate([
 ], MenuController.prototype, "GetMenu", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', exports.storage)),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [InsertMenu_dto_1.InsertMenuDto]),
+    __metadata("design:paramtypes", [InsertMenu_dto_1.InsertMenuDto, Object]),
     __metadata("design:returntype", void 0)
 ], MenuController.prototype, "InsertMenu", null);
 __decorate([
     (0, common_1.Put)('/:id'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', exports.storage)),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, InsertMenu_dto_1.InsertMenuDto]),
+    __metadata("design:paramtypes", [String, InsertMenu_dto_1.InsertMenuDto, Object]),
     __metadata("design:returntype", void 0)
 ], MenuController.prototype, "UpdateMenu", null);
 __decorate([
@@ -110,14 +107,6 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], MenuController.prototype, "viewImage", null);
-__decorate([
-    (0, common_1.Post)('/upload'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', exports.storage)),
-    __param(0, (0, common_1.UploadedFile)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], MenuController.prototype, "uploadFile", null);
 exports.MenuController = MenuController = __decorate([
     (0, common_1.Controller)('menu'),
     __metadata("design:paramtypes", [menu_service_1.MenuService])

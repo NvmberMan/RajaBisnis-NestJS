@@ -41,13 +41,26 @@ export class MenuController {
     }
 
     @Post()
-    InsertMenu(@Body() insertMenuDto: InsertMenuDto){
-        return this.menuService.InsertMenu(insertMenuDto);
+    @UseInterceptors(
+      FileInterceptor('file', storage),
+    )
+    InsertMenu(@Body() insertMenuDto: InsertMenuDto, @UploadedFile() file){
+        //if (!file) {
+          // Jika tidak ada file yang diunggah
+          //return {message: 'No file uploaded'};
+        //}
+        //console.log(file);
+        // return { imagePath: file };
+
+        return this.menuService.InsertMenu(insertMenuDto, file);
     }
 
     @Put('/:id')
-    UpdateMenu(@Param('id') id:string ,@Body() insertMenuDto: InsertMenuDto){
-        return this.menuService.UpdateMenu(id,insertMenuDto);
+    @UseInterceptors(
+      FileInterceptor('file', storage),
+    )
+    UpdateMenu(@Param('id') id:string ,@Body() insertMenuDto: InsertMenuDto, @UploadedFile() file){
+        return this.menuService.UpdateMenu(id,insertMenuDto, file);
     }
 
     
@@ -64,17 +77,17 @@ export class MenuController {
         imageStream.pipe(res);
     }
 
-    @Post('/upload')
-    @UseInterceptors(
-      FileInterceptor('file', storage),
-    )
-    uploadFile(@UploadedFile() file) {
-        if (!file) {
-            // Jika tidak ada file yang diunggah
-            throw new Error('No file uploaded');
-          }
-      console.log(file);
-      return { imagePath: file.path };
-    }
+    // @Post('/upload')
+    // @UseInterceptors(
+    //   FileInterceptor('file', storage),
+    // )
+    // uploadFile(@UploadedFile() file) {
+    //     if (!file) {
+    //         // Jika tidak ada file yang diunggah
+    //         return {message: 'No file uploaded'};
+    //       }
+    //   console.log(file);
+    //   return { imagePath: file.path };
+    // }
   
 }
