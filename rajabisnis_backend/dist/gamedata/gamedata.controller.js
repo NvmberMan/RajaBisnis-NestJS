@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GamedataController = void 0;
 const common_1 = require("@nestjs/common");
@@ -19,6 +22,9 @@ let GamedataController = exports.GamedataController = class GamedataController {
     GetAllData() {
         return this.gamedataService.GetAllData();
     }
+    GetUpdateVersion(idVersion) {
+        return this.gamedataService.GetUpdateVersion(idVersion);
+    }
 };
 __decorate([
     (0, common_1.Get)(),
@@ -26,6 +32,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], GamedataController.prototype, "GetAllData", null);
+__decorate([
+    (0, common_1.Get)('/version/:idVersion'),
+    __param(0, (0, common_1.Param)('idVersion')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], GamedataController.prototype, "GetUpdateVersion", null);
 exports.GamedataController = GamedataController = __decorate([
     (0, common_1.Controller)('gamedata'),
     __metadata("design:paramtypes", [gamedata_service_1.GamedataService])

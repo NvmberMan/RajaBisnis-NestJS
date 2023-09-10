@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { GamedataService } from './gamedata.service';
 
 @Controller('gamedata')
@@ -10,4 +10,11 @@ export class GamedataController {
   GetAllData(){
     return this.gamedataService.GetAllData();
   }
+
+  @Get('/version/:idVersion')
+  GetUpdateVersion(@Param('idVersion')idVersion:string){
+    return this.gamedataService.GetUpdateVersion(idVersion);
+  }
+
+  
 }

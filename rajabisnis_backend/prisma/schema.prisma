@@ -30,3 +30,9 @@ model Menu {
   shopId String
   shop   Shop   @relation(fields: [shopId], references: [id])
 }
+
+model VersionUpdate {
+  id          Int @id @default(autoincrement())
+  update_name String
+  created_at  DateTime  @default(now())
+}

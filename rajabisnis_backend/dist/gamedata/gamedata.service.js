@@ -20,17 +20,45 @@ let GamedataService = exports.GamedataService = class GamedataService {
         let shopData = await this.prisma.shop.findMany();
         const dataPromises = shopData.map(async (shop) => {
             const menuData = await this.prisma.menu.findMany({
-                where: { shopId: shop.id }
+                where: { shopId: shop.id },
             });
             return {
-                "IdShop": shop.id,
-                "name": shop.name,
-                "description": shop.description,
-                "menu": menuData
+                IdShop: shop.id,
+                name: shop.name,
+                description: shop.description,
+                menu: menuData,
             };
         });
         const data = await Promise.all(dataPromises);
         return { data: data };
+    }
+    async GetUpdateVersion(idVersion) {
+        const idVersionInt = parseInt(idVersion);
+        const highestIdVersion = await this.prisma.versionUpdate.findFirst({
+            orderBy: {
+                id: 'desc',
+            },
+            select: {
+                id: true,
+                update_name: true
+            },
+        });
+        if (!highestIdVersion) {
+            return 'Tidak ada data versi saat ini.';
+        }
+        if (idVersionInt >= highestIdVersion.id) {
+            return {
+                message: 'Sudah versi terbaru',
+                current_version: idVersion,
+                update: false,
+            };
+        }
+        else {
+            return { message: 'Anda perlu update ke versi terbaru',
+                current_version: idVersion,
+                new_version: highestIdVersion,
+                update: true };
+        }
     }
 };
 exports.GamedataService = GamedataService = __decorate([

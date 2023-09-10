@@ -20,4 +20,18 @@ export declare class GamedataController {
             }[];
         }[];
     }>;
+    GetUpdateVersion(idVersion: string): Promise<"Tidak ada data versi saat ini." | {
+        message: string;
+        current_version: string;
+        update: boolean;
+        new_version?: undefined;
+    } | {
+        message: string;
+        current_version: string;
+        new_version: {
+            id: number;
+            update_name: string;
+        };
+        update: boolean;
+    }>;
 }
