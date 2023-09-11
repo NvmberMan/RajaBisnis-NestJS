@@ -14,25 +14,37 @@ model Shop {
   id          String @id @default(uuid())
   name        String
   description String
-  menus       Menu[]
+
+  price       Int @default(10)
+  prefab_path String @default("Prefab/Menu/")
+
+  shop_display   String @default("shopdefault.png")
+  banner_display String @default("bannerdefault.png")
+
+  menus          Menu[]
 }
 
 model Menu {
-  id               String @id @default(uuid())
-  name             String
-  description      String
-  level_max        Int    @default(10)
+  id          String @id @default(uuid())
+  name        String
+  description String
+  level_max   Int    @default(10)
+
   price            Int
-  price_multiplier Int    @default(0)
-  price_unlock     Int    @default(0)
-  menu_display     String @default("menudefault.png")
+  price_multiplier Int @default(0)
+  price_unlock     Int @default(0)
+
+  income            Int @default(-1)
+  income_multiplier Int @default(1)
+
+  menu_display String @default("menudefault.png")
 
   shopId String
   shop   Shop   @relation(fields: [shopId], references: [id])
 }
 
 model VersionUpdate {
-  id          Int @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   update_name String
-  created_at  DateTime  @default(now())
+  created_at  DateTime @default(now())
 }

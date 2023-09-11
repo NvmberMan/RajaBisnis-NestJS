@@ -17,6 +17,8 @@ export declare class MenuController {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        income: number;
+        income_multiplier: number;
         menu_display: string;
         shopId: string;
     }[]>;
@@ -28,6 +30,8 @@ export declare class MenuController {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        income: number;
+        income_multiplier: number;
         menu_display: string;
         shopId: string;
     }>;
@@ -39,6 +43,8 @@ export declare class MenuController {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        income: number;
+        income_multiplier: number;
         menu_display: string;
         shopId: string;
     } | {
@@ -52,6 +58,8 @@ export declare class MenuController {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        income: number;
+        income_multiplier: number;
         menu_display: string;
         shopId: string;
     } | {
@@ -65,6 +73,8 @@ export declare class MenuController {
         price: number;
         price_multiplier: number;
         price_unlock: number;
+        income: number;
+        income_multiplier: number;
         menu_display: string;
         shopId: string;
     }>;

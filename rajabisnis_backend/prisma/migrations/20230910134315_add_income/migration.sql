@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Menu" ADD COLUMN     "income" INTEGER NOT NULL DEFAULT -1,
+ADD COLUMN     "income_multiplier" INTEGER NOT NULL DEFAULT 1;

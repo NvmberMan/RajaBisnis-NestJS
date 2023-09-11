@@ -8,11 +8,19 @@ export declare class ShopService {
         id: string;
         name: string;
         description: string;
+        price: number;
+        prefab_path: string;
+        shop_display: string;
+        banner_display: string;
     }>;
     findAll(): Promise<{
         id: string;
         name: string;
         description: string;
+        price: number;
+        prefab_path: string;
+        shop_display: string;
+        banner_display: string;
     }[]>;
     findOne(id: number): string;
     update(id: number, updateShopDto: UpdateShopDto): string;

@@ -20,12 +20,19 @@ let GamedataService = exports.GamedataService = class GamedataService {
         let shopData = await this.prisma.shop.findMany();
         const dataPromises = shopData.map(async (shop) => {
             const menuData = await this.prisma.menu.findMany({
+                orderBy: {
+                    id: 'asc',
+                },
                 where: { shopId: shop.id },
             });
             return {
                 IdShop: shop.id,
                 name: shop.name,
                 description: shop.description,
+                price: shop.price,
+                prefab_path: shop.prefab_path,
+                shop_display: shop.shop_display,
+                banner_display: shop.banner_display,
                 menu: menuData,
             };
         });

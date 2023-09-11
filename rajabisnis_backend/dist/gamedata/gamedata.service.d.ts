@@ -7,6 +7,10 @@ export declare class GamedataService {
             IdShop: string;
             name: string;
             description: string;
+            price: number;
+            prefab_path: string;
+            shop_display: string;
+            banner_display: string;
             menu: {
                 id: string;
                 name: string;
@@ -15,6 +19,8 @@ export declare class GamedataService {
                 price: number;
                 price_multiplier: number;
                 price_unlock: number;
+                income: number;
+                income_multiplier: number;
                 menu_display: string;
                 shopId: string;
             }[];
