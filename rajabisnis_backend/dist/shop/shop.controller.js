@@ -28,7 +28,7 @@ let ShopController = exports.ShopController = class ShopController {
         return this.shopService.findAll();
     }
     findOne(id) {
-        return this.shopService.findOne(+id);
+        return this.shopService.findOne(id);
     }
     update(id, updateShopDto) {
         return this.shopService.update(+id, updateShopDto);
@@ -51,7 +51,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ShopController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)('/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

@@ -22,7 +22,15 @@ export declare class ShopController {
         shop_display: string;
         banner_display: string;
     }[]>;
-    findOne(id: string): string;
+    findOne(id: string): Promise<{
+        id: string;
+        name: string;
+        description: string;
+        price: number;
+        prefab_path: string;
+        shop_display: string;
+        banner_display: string;
+    }>;
     update(id: string, updateShopDto: UpdateShopDto): string;
     remove(id: string): string;
 }

@@ -18,8 +18,10 @@ export class ShopService {
     return await this.prisma.shop.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} shop`;
+  async findOne(id: string) {
+    return await this.prisma.shop.findFirst({
+      where: {id: id}
+    });
   }
 
   update(id: number, updateShopDto: UpdateShopDto) {

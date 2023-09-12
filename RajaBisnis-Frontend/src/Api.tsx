@@ -1,5 +1,5 @@
 import axios from "axios";
-export const URL = "https://2793-158-140-191-50.ngrok-free.app";
+export const URL = "http://localhost:3000";
 const CONFIG =   {
   headers:{
     'Accept': 'application/json',

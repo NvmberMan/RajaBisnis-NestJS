@@ -24,8 +24,10 @@ let ShopService = exports.ShopService = class ShopService {
     async findAll() {
         return await this.prisma.shop.findMany();
     }
-    findOne(id) {
-        return `This action returns a #${id} shop`;
+    async findOne(id) {
+        return await this.prisma.shop.findFirst({
+            where: { id: id }
+        });
     }
     update(id, updateShopDto) {
         return `This action updates a #${id} shop`;
