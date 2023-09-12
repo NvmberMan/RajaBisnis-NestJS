@@ -6,7 +6,7 @@ import Details from "./content/Details.tsx";
 import Detailm from "./content/Detailm.tsx";
 import Adds from "./content/Adds.tsx";
 import Addm from "./content/Addm.tsx";
-import Test from "./content/test.tsx";
+import { Test } from "./content/test.tsx";
 
 function App() {
   return (

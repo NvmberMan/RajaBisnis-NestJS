@@ -1,53 +1,40 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { json } from "react-router-dom";
-export type dummy = {
-  brand: string;
-  category: string;
-  description: string;
+
+interface Post {
   id: number;
-  price: number;
-  stock: number;
-  thumbnail: string;
   title: string;
-};
+  body: string;
+}
 
-export default function Test() {
-  const [data, setData] = useState<dummy[]>([]);
-  const url = "'https://dummyjson.com/products/1'";
+export default function PostList() {
+  const [posts, setPosts] = useState<Post[]>([]);
 
-  const fetchData = async () => {
+  const fetchPosts = async () => {
     try {
-      const response = await axios.get(url);
-      setData(response.data);
+      const response = await axios.get("https://4bad-158-140-191-50.ngrok-free.app/shop");
+      const responseData: Post[] = response.data;
+      setPosts(responseData);
     } catch (error) {
-      console.error("Error during data fetching:", error);
+      console.error("Error fetching posts:", error);
     }
   };
 
   useEffect(() => {
-    axios
-      .get("https://dummyjson.com/products/search?q=phone")
-      .then((response) => {
-        console.log(response.data);
-      });
+    fetchPosts();
   }, []);
 
   return (
-    <>
-      <div className="App">
-        <header className="App-header">
-          <h1>Data Nama</h1>
-            {data.map((item, index) => (
-              <div key={index}>
-                Rendering item {index}
-                <span>
-                  {item.brand} = $ {item.price}
-                </span>
-              </div>
-            ))}
-        </header>
-      </div>
-    </>
+    <div>
+      <h1>List of Posts</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <h2>{post.title}</h2>
+            <p>{post.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

@@ -1,8 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
-const url = "https://7138-158-140-191-50.ngrok-free.app/";
+export const client = axios.create({
+    baseURL: "https://4bad-158-140-191-50.ngrok-free.app/shop"
+})
 
-export const getShoplist = async() =>{
-    const shop = await axios.get(`${url}shop`)
-    return shop;
+export interface ResponseAPI {
+    id: string;
+    name: string;
+    description: string;
 }
