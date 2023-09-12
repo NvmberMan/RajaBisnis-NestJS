@@ -1,28 +1,16 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { json } from "react-router-dom";
-import { GetMenu, GetShop } from "../Api";
+import { useEffect, useState } from "react";
+import { GetShop } from "../Api";
 
 export default function Test() {
   const [shop, setShop] = useState<any[]>([]);
 
-  const fetchData = async () => {
-    try {
-      const hit = await GetShop();
-      setShop(hit.data);
-      console.log(hit.data);
-    } catch (error) {
-      console.error("Error fetching shop data:", error);
-    }
-  };
-
   useEffect(() => {
     let hit = GetShop();
-    const setShop = hit;
 
     hit
       .then((data) => {
         console.log(data);
+        setShop(data)
       })
       .catch((err) => {
         console.log(err);

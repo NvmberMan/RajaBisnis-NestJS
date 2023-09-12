@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "https://b0d3-158-140-191-50.ngrok-free.app";
+const URL = "https://2793-158-140-191-50.ngrok-free.app";
 const CONFIG =   {
   headers:{
     'Accept': 'application/json',
