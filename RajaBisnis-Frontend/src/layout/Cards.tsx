@@ -10,8 +10,25 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Fingerprint from "@mui/icons-material/Fingerprint";
 import { Navigate ,useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { GetShop, Getimage } from "../Api";
 
 export default function Cards() {
+  const [shop, setShop] = useState<any[]>([]);
+
+  useEffect(() => {
+    let hit = GetShop();
+
+    hit
+      .then((data) => {
+        console.log(data);
+        setShop(data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const {id} = useParams()
   let navigate = useNavigate()
 
@@ -23,8 +40,9 @@ export default function Cards() {
   return (
     <>
         <Box sx={{width: "85vw", display : "flex", flexWrap: "wrap-reverse", gap: "20px"}}>
-      
-          <Card sx={{ width: 275 , boxShadow:10}} id="1">
+
+        {shop.map((post) => (<div key={post.id}>
+                <Card sx={{ width: 275 , boxShadow:10}} id="1">
             <CardContent>
               <Typography
                 variant="h5"
@@ -32,18 +50,17 @@ export default function Cards() {
                 color="text.primary"
                 gutterBottom
               >
-                <strong>Ayam gepress</strong>
+                <strong>{post.name}</strong>
               </Typography>
               <CardMedia
                 component="img"
                 height="194"
-                image="/src/assets/money.jpg"
-                alt="Paella dish"
+                image={`${Getimage(post.name)}`}
               />
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Type: Food
+                Price: {post.price}
               </Typography>
-              <Typography variant="body2">Sebuah resto makanan</Typography>
+              <Typography variant="body2">{post.description}</Typography>
             </CardContent>
             <CardActions
               id = "1"
@@ -54,6 +71,9 @@ export default function Cards() {
               <Button color="secondary">Detail</Button>
             </CardActions>
           </Card>
+              </div>))}
+
+          
           
         </Box>
     </>
