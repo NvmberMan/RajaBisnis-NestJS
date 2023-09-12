@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -12,25 +12,120 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CardMedia from "@mui/material/CardMedia";
 import SendIcon from "@mui/icons-material/Send";
 import { useNavigate } from "react-router-dom";
+import {Route, Link, Routes, useParams} from 'react-router-dom';
 import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid";
 import Fab from "@mui/material/Fab";
 import "./Style/Detail.css";
 import Tablemenu from "../layout/Tablemenu";
 import SideBar from "../layout/Sidebar";
+import { GetShopId, Getmenuid } from "../Api";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import EditIcon from '@mui/icons-material/Edit';
+import DelIcon from "@mui/icons-material/DeleteForever"
+import AlertDelete from "../layout/AlertDelete";
+
+
 
 export default function Details() {
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    "&:last-child td, &:last-child th": {
+      border: 0,
+    },
+  }));
+
+  
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: theme.palette.primary.dark,
+      color: theme.palette.common.white,
+      
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const [detailShop, setDetailshop] = useState<any>({
+    name: "",
+    description: "",
+    price: 0,
+  });
+  
+  const [shopmenu, setshopmenu] = useState<any>({
+    name: "",
+    description: "",
+    price: 0,
+  });
+  
+  
   const VisuallyHiddenInput = styled("input")`
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    white-space: nowrap;
-    width: 1px;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 1px;
   `;
+  const params = useParams();
+  console.log(params)
+  useEffect(() => {
+    if (params.id) { // Check if params.id is defined
+      let hit = GetShopId(params.id);
+      let htm = Getmenuid(params.id)
+
+      htm
+      .then((data) => {
+        console.log(data);
+        setshopmenu(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      
+      
+      hit
+      .then((data) => {
+        console.log(data);
+        setDetailshop(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [params.id]); // Include params.id as a dependency to trigger the effect when it changes
+  
+  function createData(
+    name: string,
+    description: string,
+    price: number,
+  ) {
+    return { name, description, price };
+  }
+
+  
+  const rows = [
+    createData(`name`, `desc`, 0)
+  ];
+  
+  // shopmenu.map((data:any)=>{
+  //   rows.push(createData(data.name,data.description,data.price))
+  // })
+
+
 
   const [imageSrc, setImageSrc] = useState("");
   function handleimage(e: any) {
@@ -74,6 +169,7 @@ export default function Details() {
                     id="Name"
                     label="name"
                     sx={{ width: "46%" }}
+                    value={`${detailShop.name}`}
                   />
 
                   <Autocomplete
@@ -94,11 +190,12 @@ export default function Details() {
                   }}
                 >
                   <TextField
-                    id="Desc"
+                    id="outlined-multiline-static"
                     label="Description"
                     multiline
                     rows={5}
-                    sx={{ width: "100%" }}
+                    sx={{ width: "100%"  }}
+                    value={`${detailShop.description}`}
                   />
                 </Box>
                 <Box
@@ -118,6 +215,7 @@ export default function Details() {
                   <TextField
                     id="prc"
                     label="Price"
+                    value={`${detailShop.price}`}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -153,7 +251,7 @@ export default function Details() {
                 <CardMedia
                   component="img"
                   sx={{ width: "150px", height: "150px", m: 2 }}
-                  image={imageSrc || '/src/assets/money.jpg'} 
+                  image={imageSrc || `https://2793-158-140-191-50.ngrok-free.app/menu/image/${detailShop.shop_display}`} 
                 />
                 <Button
                   component="label"
@@ -203,7 +301,40 @@ export default function Details() {
               </Fab>
             </Box>
 
-            <Tablemenu />
+            <TableContainer>
+      <Table
+        sx={{ width: 1000, m: 5 , borderRadius: "10px", boxShadow: 8}}
+        component={Paper}
+        aria-label="customized table"
+      >
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell align="center">Description</StyledTableCell>
+            <StyledTableCell align="center">Price</StyledTableCell>
+            <StyledTableCell align="center">Edit</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <StyledTableRow key={row.name}>
+              <StyledTableCell component="th" scope="row">
+                {row.name}
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.description}</StyledTableCell>
+              <StyledTableCell align="right">{row.price}</StyledTableCell>
+              <StyledTableCell align="right">
+                <Fab className="edit" color="secondary" sx={{width:50, height:50}} onClick={()=>{navigate(`/Detailm/:id`)}} aria-label="edit">
+                  <EditIcon />
+                </Fab>
+                <AlertDelete/>
+              </StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
           </Box>
         </Container>
       </React.Fragment>

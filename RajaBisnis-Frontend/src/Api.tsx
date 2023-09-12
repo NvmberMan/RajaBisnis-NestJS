@@ -15,6 +15,16 @@ export const GetShop = async() =>{
     return hit.data;
 }
 
+export const GetShopId = async(id:string) =>{
+  const hit = await axios.get(`${URL}/shop/${id}`, CONFIG);
+  return hit.data;
+}
+
+export const Getmenuid = async(id:string) =>{
+  const hit = await axios.get(`${URL}/menu/${id}`, CONFIG);
+  return hit.data;
+}
+
 export const Getimage = async(name:string) =>{
   const hit = `${URL}/menu/image/${name}`;
 }

@@ -55,7 +55,7 @@ export default function Cards() {
               <CardMedia
                 component="img"
                 height="194"
-                image={`${Getimage(post.name)}`}
+                image={`https://2793-158-140-191-50.ngrok-free.app/menu/image/${post.shop_display}`}
               />
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
                 Price: {post.price}
@@ -63,7 +63,7 @@ export default function Cards() {
               <Typography variant="body2">{post.description}</Typography>
             </CardContent>
             <CardActions
-              id = "1"
+              id = {`${post.id}`}
               sx={{ justifyContent: "center", textDecoration: "none" }}
               onClick={handleClick}
               
