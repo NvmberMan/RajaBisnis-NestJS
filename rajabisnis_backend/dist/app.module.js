@@ -10,11 +10,13 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const menu_module_1 = require("./menu/menu.module");
 const prisma_module_1 = require("./prisma/prisma.module");
+const shop_module_1 = require("./shop/shop.module");
+const gamedata_module_1 = require("./gamedata/gamedata.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [menu_module_1.MenuModule, prisma_module_1.PrismaModule],
+        imports: [menu_module_1.MenuModule, prisma_module_1.PrismaModule, shop_module_1.ShopModule, gamedata_module_1.GamedataModule],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
