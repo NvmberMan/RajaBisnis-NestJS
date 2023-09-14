@@ -29,15 +29,19 @@ export class MenuController {
 
     }
 
-    @Get()
-    async GetAllMenu() {
-        return await this.menuService.GetAllMenu();
+    @Get('/:shopId')
+    async GetAllMenu(@Param('shopId')shopId:string) {
+        return await this.menuService.GetAllMenu(shopId);
     }
 
     
-    @Get('/:shopId')
-    async GetMenu(@Param('shopId')shopId:string) {
-        return await this.menuService.GetMenu(shopId);
+    @Get('/:shopId/:menuId')
+    async GetDetailMenu(
+      @Param('shopId') shopId: string,
+      @Param('menuId') menuId: string,
+    ) {
+      // Anda sekarang memiliki kedua parameter 'shopId' dan 'menuId' yang dapat digunakan di sini
+      return await this.menuService.GetDetailMenu(shopId, menuId);
     }
 
     @Post()
@@ -69,13 +73,7 @@ export class MenuController {
         return this.menuService.DeleteMenu(id);
     }
 
-    @Get('/image/:imageName')
-    async viewImage(@Param('imageName') imageName:string, @Res() res: Response){
-        const imagePath = `./imagedata/menu/${imageName}`;
-        const imageStream = fs.createReadStream(imagePath);
 
-        imageStream.pipe(res);
-    }
 
     // @Post('/upload')
     // @UseInterceptors(

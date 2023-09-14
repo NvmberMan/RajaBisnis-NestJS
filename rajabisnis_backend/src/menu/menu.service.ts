@@ -10,14 +10,19 @@ constructor(private prisma:PrismaService){
 
 }
 
-    async GetAllMenu(){
-        return await this.prisma.menu.findMany();
-    }
-
-    async GetMenu(shopId:string){
-        return await this.prisma.menu.findFirst({
+    async GetAllMenu(shopId:string){
+        return await this.prisma.menu.findMany({
             where : {
                 shopId: shopId
+            }
+        });
+    }
+
+    async GetDetailMenu(shopId:string, menuId:string){
+        return await this.prisma.menu.findFirst({
+            where : {
+                shopId: shopId,
+                id:menuId
             }
         });
     }

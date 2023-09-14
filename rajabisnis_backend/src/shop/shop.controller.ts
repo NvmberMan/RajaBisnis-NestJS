@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { ShopService } from './shop.service';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
@@ -10,6 +10,11 @@ export class ShopController {
   @Post()
   async create(@Body() createShopDto: CreateShopDto) {
     return await this.shopService.create(createShopDto);
+  }
+
+  @Put('/:id')
+  async edit(@Param('id') id: string, @Body() updateShopDto: UpdateShopDto) {
+    return await this.shopService.update(id, updateShopDto);
   }
 
   @Get()
@@ -24,11 +29,11 @@ export class ShopController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateShopDto: UpdateShopDto) {
-    return this.shopService.update(+id, updateShopDto);
+    return this.shopService.update(id, updateShopDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.shopService.remove(+id);
+  @Delete('/:id')
+  async remove(@Param('id') id: string) {
+    return await this.shopService.remove(id);
   }
 }

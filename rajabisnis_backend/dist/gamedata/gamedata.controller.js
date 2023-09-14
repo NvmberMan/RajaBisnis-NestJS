@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GamedataController = void 0;
 const common_1 = require("@nestjs/common");
 const gamedata_service_1 = require("./gamedata.service");
+const fs = require("fs");
 let GamedataController = exports.GamedataController = class GamedataController {
     constructor(gamedataService) {
         this.gamedataService = gamedataService;
@@ -24,6 +25,20 @@ let GamedataController = exports.GamedataController = class GamedataController {
     }
     GetUpdateVersion(idVersion) {
         return this.gamedataService.GetUpdateVersion(idVersion);
+    }
+    viewImage(imageName, res) {
+        const imagePath = `./imagedata/menu/${imageName}`;
+        const loadingPath = `./imagedata/menu/loading2.gif`;
+        fs.access(imagePath, fs.constants.F_OK, (err) => {
+            if (err) {
+                const imageStream = fs.createReadStream(loadingPath);
+                imageStream.pipe(res);
+            }
+            else {
+                const imageStream = fs.createReadStream(imagePath);
+                imageStream.pipe(res);
+            }
+        });
     }
 };
 __decorate([
@@ -39,6 +54,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], GamedataController.prototype, "GetUpdateVersion", null);
+__decorate([
+    (0, common_1.Get)('/image/:imageName'),
+    __param(0, (0, common_1.Param)('imageName')),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], GamedataController.prototype, "viewImage", null);
 exports.GamedataController = GamedataController = __decorate([
     (0, common_1.Controller)('gamedata'),
     __metadata("design:paramtypes", [gamedata_service_1.GamedataService])

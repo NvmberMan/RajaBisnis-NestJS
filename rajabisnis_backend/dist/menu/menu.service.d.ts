@@ -3,7 +3,7 @@ import { InsertMenuDto } from './dto/InsertMenu.dto';
 export declare class MenuService {
     private prisma;
     constructor(prisma: PrismaService);
-    GetAllMenu(): Promise<{
+    GetAllMenu(shopId: string): Promise<{
         id: string;
         name: string;
         description: string;
@@ -16,7 +16,7 @@ export declare class MenuService {
         menu_display: string;
         shopId: string;
     }[]>;
-    GetMenu(shopId: string): Promise<{
+    GetDetailMenu(shopId: string, menuId: string): Promise<{
         id: string;
         name: string;
         description: string;

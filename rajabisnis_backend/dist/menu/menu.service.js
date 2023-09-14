@@ -17,13 +17,18 @@ let MenuService = exports.MenuService = class MenuService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async GetAllMenu() {
-        return await this.prisma.menu.findMany();
-    }
-    async GetMenu(shopId) {
-        return await this.prisma.menu.findFirst({
+    async GetAllMenu(shopId) {
+        return await this.prisma.menu.findMany({
             where: {
                 shopId: shopId
+            }
+        });
+    }
+    async GetDetailMenu(shopId, menuId) {
+        return await this.prisma.menu.findFirst({
+            where: {
+                shopId: shopId,
+                id: menuId
             }
         });
     }

@@ -19,7 +19,6 @@ const InsertMenu_dto_1 = require("./dto/InsertMenu.dto");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const path_1 = require("path");
-const fs = require("fs");
 exports.storage = {
     storage: (0, multer_1.diskStorage)({
         destination: './imagedata/menu/',
@@ -39,11 +38,11 @@ let MenuController = exports.MenuController = class MenuController {
     constructor(menuService) {
         this.menuService = menuService;
     }
-    async GetAllMenu() {
-        return await this.menuService.GetAllMenu();
+    async GetAllMenu(shopId) {
+        return await this.menuService.GetAllMenu(shopId);
     }
-    async GetMenu(shopId) {
-        return await this.menuService.GetMenu(shopId);
+    async GetDetailMenu(shopId, menuId) {
+        return await this.menuService.GetDetailMenu(shopId, menuId);
     }
     InsertMenu(insertMenuDto, file) {
         return this.menuService.InsertMenu(insertMenuDto, file);
@@ -54,25 +53,22 @@ let MenuController = exports.MenuController = class MenuController {
     DeleteMenu(id) {
         return this.menuService.DeleteMenu(id);
     }
-    async viewImage(imageName, res) {
-        const imagePath = `./imagedata/menu/${imageName}`;
-        const imageStream = fs.createReadStream(imagePath);
-        imageStream.pipe(res);
-    }
 };
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], MenuController.prototype, "GetAllMenu", null);
 __decorate([
     (0, common_1.Get)('/:shopId'),
     __param(0, (0, common_1.Param)('shopId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], MenuController.prototype, "GetMenu", null);
+], MenuController.prototype, "GetAllMenu", null);
+__decorate([
+    (0, common_1.Get)('/:shopId/:menuId'),
+    __param(0, (0, common_1.Param)('shopId')),
+    __param(1, (0, common_1.Param)('menuId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], MenuController.prototype, "GetDetailMenu", null);
 __decorate([
     (0, common_1.Post)(),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', exports.storage)),
@@ -99,14 +95,6 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], MenuController.prototype, "DeleteMenu", null);
-__decorate([
-    (0, common_1.Get)('/image/:imageName'),
-    __param(0, (0, common_1.Param)('imageName')),
-    __param(1, (0, common_1.Res)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", Promise)
-], MenuController.prototype, "viewImage", null);
 exports.MenuController = MenuController = __decorate([
     (0, common_1.Controller)('menu'),
     __metadata("design:paramtypes", [menu_service_1.MenuService])

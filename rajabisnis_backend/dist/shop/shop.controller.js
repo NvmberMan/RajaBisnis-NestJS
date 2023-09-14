@@ -24,6 +24,9 @@ let ShopController = exports.ShopController = class ShopController {
     async create(createShopDto) {
         return await this.shopService.create(createShopDto);
     }
+    async edit(id, updateShopDto) {
+        return await this.shopService.update(id, updateShopDto);
+    }
     findAll() {
         return this.shopService.findAll();
     }
@@ -31,10 +34,10 @@ let ShopController = exports.ShopController = class ShopController {
         return this.shopService.findOne(id);
     }
     update(id, updateShopDto) {
-        return this.shopService.update(+id, updateShopDto);
+        return this.shopService.update(id, updateShopDto);
     }
-    remove(id) {
-        return this.shopService.remove(+id);
+    async remove(id) {
+        return await this.shopService.remove(id);
     }
 };
 __decorate([
@@ -44,6 +47,14 @@ __decorate([
     __metadata("design:paramtypes", [create_shop_dto_1.CreateShopDto]),
     __metadata("design:returntype", Promise)
 ], ShopController.prototype, "create", null);
+__decorate([
+    (0, common_1.Put)('/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_shop_dto_1.UpdateShopDto]),
+    __metadata("design:returntype", Promise)
+], ShopController.prototype, "edit", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
@@ -66,11 +77,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ShopController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
+    (0, common_1.Delete)('/:id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ShopController.prototype, "remove", null);
 exports.ShopController = ShopController = __decorate([
     (0, common_1.Controller)('shop'),

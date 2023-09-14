@@ -24,11 +24,27 @@ export class ShopService {
     });
   }
 
-  update(id: number, updateShopDto: UpdateShopDto) {
-    return `This action updates a #${id} shop`;
+  async update(id: string, updateShopDto: UpdateShopDto) {
+
+
+    const existingShop = await this.prisma.shop.findUnique({
+      where : {id}
+  });
+
+    //mengecek apakah id yang ingin di update ada
+    if(!existingShop)
+    { 
+      return 'ID SALAH ANJG';
+    }
+    return await this.prisma.shop.update({
+      data: updateShopDto,
+      where: {id: id}
+    })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} shop`;
+  async remove(id: string) {
+    return await this.prisma.shop.delete({
+      where: {id: id}
+    });
   }
 }

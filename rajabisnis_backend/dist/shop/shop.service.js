@@ -29,11 +29,22 @@ let ShopService = exports.ShopService = class ShopService {
             where: { id: id }
         });
     }
-    update(id, updateShopDto) {
-        return `This action updates a #${id} shop`;
+    async update(id, updateShopDto) {
+        const existingShop = await this.prisma.shop.findUnique({
+            where: { id }
+        });
+        if (!existingShop) {
+            return 'ID SALAH ANJG';
+        }
+        return await this.prisma.shop.update({
+            data: updateShopDto,
+            where: { id: id }
+        });
     }
-    remove(id) {
-        return `This action removes a #${id} shop`;
+    async remove(id) {
+        return await this.prisma.shop.delete({
+            where: { id: id }
+        });
     }
 };
 exports.ShopService = ShopService = __decorate([

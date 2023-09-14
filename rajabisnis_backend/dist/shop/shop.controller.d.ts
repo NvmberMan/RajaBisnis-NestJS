@@ -13,6 +13,15 @@ export declare class ShopController {
         shop_display: string;
         banner_display: string;
     }>;
+    edit(id: string, updateShopDto: UpdateShopDto): Promise<{
+        id: string;
+        name: string;
+        description: string;
+        price: number;
+        prefab_path: string;
+        shop_display: string;
+        banner_display: string;
+    } | "ID SALAH ANJG">;
     findAll(): Promise<{
         id: string;
         name: string;
@@ -31,6 +40,22 @@ export declare class ShopController {
         shop_display: string;
         banner_display: string;
     }>;
-    update(id: string, updateShopDto: UpdateShopDto): string;
-    remove(id: string): string;
+    update(id: string, updateShopDto: UpdateShopDto): Promise<{
+        id: string;
+        name: string;
+        description: string;
+        price: number;
+        prefab_path: string;
+        shop_display: string;
+        banner_display: string;
+    } | "ID SALAH ANJG">;
+    remove(id: string): Promise<{
+        id: string;
+        name: string;
+        description: string;
+        price: number;
+        prefab_path: string;
+        shop_display: string;
+        banner_display: string;
+    }>;
 }

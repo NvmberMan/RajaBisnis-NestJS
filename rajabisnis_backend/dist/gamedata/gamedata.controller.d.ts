@@ -1,4 +1,5 @@
 import { GamedataService } from './gamedata.service';
+import { Response } from 'express';
 export declare class GamedataController {
     private readonly gamedataService;
     constructor(gamedataService: GamedataService);
@@ -40,4 +41,5 @@ export declare class GamedataController {
         };
         update: boolean;
     }>;
+    viewImage(imageName: string, res: Response): void;
 }
