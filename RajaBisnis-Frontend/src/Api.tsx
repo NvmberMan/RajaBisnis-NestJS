@@ -1,6 +1,6 @@
 import axios from "axios";
-export const URL = "https://2793-158-140-191-50.ngrok-free.app";
-const CONFIG =   {
+export const URL = "https://d152-158-140-191-50.ngrok-free.app";
+export const CONFIG =   {
   headers:{
     'Accept': 'application/json',
     'Content-Type': 'application/json',
@@ -24,9 +24,13 @@ export const Getmenuid = async(id:string) =>{
   const hit = await axios.get(`${URL}/menu/${id}`, CONFIG);
   return hit.data;
 }
+export const Getmenudetail = async(idshop:string,id:string) =>{
+  const hit = await axios.get(`${URL}/menu/${idshop}/${id}`, CONFIG);
+  return hit.data;
+}
 
 export const Getimage = async(name:string) =>{
-  const hit = `${URL}/menu/image/${name}`;
+  const hit = `${URL}/gamedata/image/${name}`;
 }
 
 

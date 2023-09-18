@@ -20,6 +20,8 @@ import SendIcon from "@mui/icons-material/Send";
 import Grid from '@mui/material/Grid';
 import "./Style/Detail.css";
 import SideBar from "../layout/Sidebar";
+import axios from "axios";
+import { URL } from "../Api";
 
 export default function Adds() {
   const VisuallyHiddenInput = styled("input")`
@@ -40,8 +42,41 @@ export default function Adds() {
     if (file) {
       const imageURL = URL.createObjectURL(file);
       setImageSrc(imageURL);
+      console.log(file)
     }
   }
+
+  const [name, setName] = useState(``)
+  const [desc, setdesc] = useState(``)
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  function senddata(event:any)
+  {
+
+    console.log(name)
+    console.log(desc)
+    event.preventDefault()
+    axios.post(`${URL}/Shop`, {
+      "name":name,
+      "description":desc
+    })
+    .then((response) => {
+      console.log(response)
+      navigate(`/Details/${response.data.id}`, { replace: true })
+    })
+    .catch(err => console.log(err))
+    
+  }
+  
   const navigate = useNavigate()
 
   return (
@@ -49,14 +84,15 @@ export default function Adds() {
       <React.Fragment>
         <SideBar/>
         <CssBaseline />
-        <Container fixed>
+        <Container>
             
           <Box sx={{ bgcolor: "#cfe8fc", mx: 5 ,pb:3}}>
+            <form onSubmit={senddata}>
           <Box sx={{ flexGrow: 1 }}>
               <AppBar position="static">
                 <Toolbar variant="dense">
                   <Typography variant="h6" color="inherit" component="div">
-                    <strong>Add Shop</strong>
+                    <strong>Add shop</strong>
                   </Typography>
                 </Toolbar>
               </AppBar>
@@ -73,8 +109,11 @@ export default function Adds() {
                     }}
                   >
                     <TextField
-                      id="Name"
+                      id="name"
+                      required
+                      name="name"
                       label="name"
+                      onChange={(e) => setName(e.target.value)}
                       sx={{ width: "46%" }}
                     />
 
@@ -96,8 +135,11 @@ export default function Adds() {
                     }}
                   >
                     <TextField
-                      id="Desc"
+                      id="desc"
+                      required
+                      name="desc"
                       label="Description"
+                      onChange={(e) => setdesc(e.target.value)}
                       multiline
                       rows={5}
                       sx={{ width: "100%" }}
@@ -174,11 +216,13 @@ export default function Adds() {
                   variant="contained"
                   sx={{ width: "100%", mx: 5 }}
                   endIcon={<SendIcon />}
+                  type="submit"
                 >
-                  Update
+                  Add
                 </Button>
               </Grid>
             </Grid>
+            </form>
           </Box>
         </Container>
       </React.Fragment>

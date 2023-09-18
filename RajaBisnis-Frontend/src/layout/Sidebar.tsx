@@ -21,6 +21,7 @@ import DashboardIcon from "@mui/icons-material/DashboardTwoTone";
 import { useNavigate } from "react-router-dom";
 import ShopIcon from "@mui/icons-material/Store";
 import AddBox from "@mui/icons-material/AddBox"
+import PaidIcon from '@mui/icons-material/Paid';
 import MailIcon from "@mui/icons-material/Mail";
 import DashBoard from "../content/Dash";
 
@@ -125,7 +126,7 @@ export default function SideBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Catching />
+          <PaidIcon/>
           <Typography variant="h5" noWrap component="div" sx={{ m: 2 }}>
             Raja Bisnis
           </Typography>

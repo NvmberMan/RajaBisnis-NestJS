@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState} from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -22,11 +24,24 @@ const Transition = React.forwardRef(function Transition(
 export default function AlertDelete() {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const [targetid, settargetid] = useState<string>();
+  function handleClickOpen(event: any) {
+    event.preventDefault();
+    settargetid(event.target.id)
     setOpen(true);
-  };
+
+  }
 
   const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handledelete = () => {
+    console.log(targetid);
+
+    axios.delete(`${URL}/shop/${targetid}`).then((message:any) =>{
+      window.location.reload(); 
+    });
     setOpen(false);
   };
 

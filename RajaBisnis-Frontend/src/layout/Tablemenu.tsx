@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
+import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -49,6 +50,9 @@ const rows = [
 ];
 
 export default function Tablemenu() {
+  const [shop, setShop] = useState<any[]>([]);
+
+  
   const navigate = useNavigate();
   return (
     
